@@ -159,6 +159,25 @@ var multiply = function(x, y) {
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
 var divide = function(x, y) {
+  if (y === 0) { return NaN; }
+  if (abs(x) === abs(y)) { return 1; }
+  if (abs(x) < abs(y)) { return 0; }
+
+  if (pos(x,y)) {
+    console.log(x,y);
+    return 1 + divide(x - y, y);
+  } else {
+    console.log(x,y);
+    return -1 - divide(x + y, y);
+  }
+
+  function abs(x) {
+    return x > 0 ? x : 0 - x;
+  }
+
+  function pos(x, y) {
+    return (x >= 0 && y >= 0) || (x < 0) && (y < 0);
+  }
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
