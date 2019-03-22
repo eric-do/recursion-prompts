@@ -125,11 +125,35 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  if (y === 0) { return NaN; }
+  if (abs(x) < abs(y)) { return x; }
+  if (x === y) { return 0; }
+  return pos(x, y) ? modulo(x - y, y) : modulo(x + y, y);
+
+  function abs(x) {
+    return x > 0 ? x : 0 - x;
+  }
+
+  function pos(x, y) {
+    return (x >= 0 && y >= 0) || (x < 0) && (y < 0);
+  }
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+
+  if (x === 0 || y === 0) { return 0; }
+  if (x === 1) { return y; }
+  if (y === 1) { return x; }
+
+  return x >= 0 && y < 0 ? (0 - x) + multiply((0 - x), abs(y) - 1)
+       : x < 0 && y >= 0 ? x + multiply(x, y - 1)
+       : abs(x) + multiply(abs(x), abs(y) - 1);
+
+  function abs(x) {
+    return x > 0 ? x : 0 - x;
+  }
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
@@ -143,6 +167,7 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -150,11 +175,18 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+  if (str1.length === 0 && str2.length === 0) { return true; }
+  if (str1.charAt(0) === str2.charAt(0)) { return compareStr(str1.slice(1), str2.slice(1)); }
+  return false;
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+  if (str.length === 0) { return []; }
+  arr = createArray(str.slice(1));
+  arr.unshift(str.charAt(0));
+  return arr;
 };
 
 // 17. Reverse the order of an array
