@@ -318,6 +318,15 @@ var replaceKeysInObj = function(obj, oldKey, newKey) {
 // fibonacci(5); // [0,1,1,2,3,5]
 // Note: The 0 is not counted.
 var fibonacci = function(n) {
+  if (n <= 0) { return null; }
+  if (n === 1) {
+    var arr = [0,1];
+    return arr;
+  }
+  var arr = fibonacci(n - 1);
+  var len = arr.length;
+  arr.push(arr[len - 1] + arr[len - 2]);
+  return arr;
 };
 
 // 26. Return the Fibonacci number located at index n of the Fibonacci sequence.
@@ -326,12 +335,19 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
+
 };
 
 // 27. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 var capitalizeWords = function(array) {
+  if (array.length === 0) {
+    return [];
+  }
+  var arr = capitalizeWords(array.slice(1));
+  arr.unshift(array[0].toUpperCase());
+  return arr;
 };
 
 // 28. Given an array of strings, capitalize the first letter of each index.
