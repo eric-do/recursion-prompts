@@ -355,6 +355,10 @@ var capitalizeWords = function(array) {
 // 28. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car','poop','banana']); // ['Car','Poop','Banana']
 var capitalizeFirst = function(array) {
+  if (array.length === 0) { return []; }
+  var arr = capitalizeFirst(array.slice(1));
+  arr.unshift(array[0].charAt(0).toUpperCase() + array[0].slice(1));
+  return arr;
 };
 
 // 29. Return the sum of all even numbers in an object containing nested objects.
@@ -367,6 +371,18 @@ var capitalizeFirst = function(array) {
 // };
 // nestedEvenSum(obj1); // 10
 var nestedEvenSum = function(obj) {
+  var sum = 0;
+  for (var key in obj) {
+    var num = 0;
+    if (typeof obj[key] === 'object' && obj.hasOwnProperty(key)) {
+      sum += nestedEvenSum(obj[key]);
+    }
+    num = parseInt(obj[key]);
+    if (num % 2 === 0) {
+      sum += num;
+    }
+  }
+  return sum;
 };
 
 // 30. Flatten an array containing nested arrays.
