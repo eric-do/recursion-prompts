@@ -431,12 +431,22 @@ var compress = function(list) {
 // itself.
 // augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 var augmentElements = function(array, aug) {
+  if (array.length === 0) { return; }
+  var arr = augmentElements(array.slice(1), aug);
+  array[0].push(aug);
+  return array;
 };
 
 // 34. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
 var minimizeZeroes = function(array) {
+  if (array.length === 0) { return []; }
+  var arr = minimizeZeroes(array.slice(1));
+  if (array[0] !== 0 || arr[0] !== 0) {
+    arr.unshift(array[0]);
+  }
+  return arr;
 };
 
 // 35. Alternate the numbers in an array between positive and negative regardless of
