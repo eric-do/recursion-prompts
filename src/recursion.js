@@ -454,12 +454,45 @@ var minimizeZeroes = function(array) {
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
 var alternateSign = function(array) {
+  if (array.length === 1) { return [abs(array[0])]; }
+  var arr = alternateSign(array.slice(1));
+  if (arr[0] < 0) {
+    arr.unshift(abs(array[0]));
+  } else {
+    arr.unshift(abs(array[0]) * -1);
+  }
+  if (arr[0] < 0) {
+    return arr.map(x => x * -1 );
+  }
+  return arr;
+
+  function abs(x) {
+    return x > 0 ? x : 0 - x;
+  }
 };
 
 // 36. Given a string, return a string with digits converted to their word equivalent.
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
+  var numMap = {
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine'
+  };
+  if (str.length === 0) { return ''; }
+  var newStr = numToText(str.slice(1));
+  if (numMap[str.charAt(0)]) {
+    return numMap[str.charAt(0)] + newStr;
+  } else {
+    return str.charAt(0) + newStr;
+  }
 };
 
 
