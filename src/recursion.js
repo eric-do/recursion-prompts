@@ -502,21 +502,22 @@ var numToText = function(str) {
 // ex.  $rootElement = $('<div id="tagCountTest"><p>beep</p><div><p><span>blip</span></p></div><p>blorp</p></div>');
 var tagCount = function(tag, node) {
   var sum = 0; 
-  
-  if (node === undefined) {
-    return sum;
+  if (!node) {
+    var bodyList = document.getElementsByTagName('body');
+    var node = bodyList[0];
   }
-
-  if (node.children.length > 0) {
+  
+  if (node.children) {
     var nodeList = node.childNodes;
     nodeList.forEach(function(n){
       sum += tagCount(tag, n);  
     });
-  } else if (node.nodeName.toLowerCase() === tag) {
+  }
+  
+  if (node.nodeName.toLowerCase() === tag) {
     sum++;
   }
   
-  console.log(sum, tag, node.nodeName.toLowerCase());
   return sum;
 };
 
